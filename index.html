@@ -1,0 +1,875 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>StarFait Data Labs | HIA-Compliant Clinical Information Management</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --magnolia: #EDDFEF;
+            --independence: #464655;
+            --sage-stone: #94958B;
+            --periwinkle-gray: #D5CFE1;
+            --silver: #B7B6C1;
+            --white: #FFFFFF;
+            --text-dark: #2D2A3A;
+            --text-soft: #5A556C;
+            --shadow-sm: 0 8px 20px rgba(0, 0, 0, 0.03), 0 2px 6px rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 20px 35px -12px rgba(0, 0, 0, 0.08);
+            --radius-card: 28px;
+            --radius-pill: 60px;
+            --transition: all 0.25s ease;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--magnolia);
+            color: var(--text-dark);
+            line-height: 1.5;
+            scroll-behavior: smooth;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 600;
+            letter-spacing: -0.01em;
+        }
+
+        h1 {
+            font-size: clamp(2.8rem, 5vw, 4.2rem);
+            line-height: 1.2;
+            color: var(--independence);
+        }
+        h2 {
+            font-size: clamp(2rem, 3.5vw, 2.8rem);
+            color: var(--independence);
+            margin-bottom: 1rem;
+        }
+        h3 {
+            font-size: 1.6rem;
+            color: var(--independence);
+        }
+        .section-subhead {
+            font-size: 1.2rem;
+            color: var(--text-soft);
+            max-width: 700px;
+            margin-bottom: 2.5rem;
+        }
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+        section {
+            padding: 5rem 0;
+        }
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            background-color: var(--independence);
+            color: white;
+            padding: 0.9rem 2rem;
+            border-radius: var(--radius-pill);
+            font-weight: 600;
+            text-decoration: none;
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            box-shadow: var(--shadow-sm);
+        }
+        .btn-primary:hover {
+            background-color: #353544;
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+        .btn-outline {
+            background: transparent;
+            border: 1.5px solid var(--independence);
+            color: var(--independence);
+            padding: 0.8rem 1.8rem;
+            border-radius: var(--radius-pill);
+            font-weight: 500;
+            text-decoration: none;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .btn-outline:hover {
+            background: var(--independence);
+            color: white;
+        }
+        .card {
+            background: white;
+            border-radius: var(--radius-card);
+            padding: 2rem;
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition);
+            border: 1px solid rgba(0,0,0,0.02);
+            height: 100%;
+        }
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-md);
+            border-color: var(--periwinkle-gray);
+        }
+        .grid-2cols {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 3rem;
+        }
+        .grid-3cols {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+        }
+        .navbar {
+            position: fixed;
+            top: 1.5rem;
+            left: 50%;
+            transform: translateX(-50%);
+            width: calc(100% - 3rem);
+            max-width: 1280px;
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(12px);
+            border-radius: 80px;
+            padding: 0.8rem 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            z-index: 1000;
+            box-shadow: 0 4px 20px rgba(70, 70, 85, 0.05);
+            border: 1px solid rgba(255,255,240,0.6);
+        }
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: var(--independence);
+            text-decoration: none;
+            letter-spacing: -0.3px;
+        }
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+        .nav-links a {
+            text-decoration: none;
+            font-weight: 500;
+            color: var(--text-dark);
+            transition: color 0.2s;
+            font-size: 0.95rem;
+        }
+        .nav-links a:hover {
+            color: var(--independence);
+        }
+        .hero {
+            padding-top: 8rem;
+            padding-bottom: 4rem;
+        }
+        .badge {
+            background: var(--periwinkle-gray);
+            padding: 0.3rem 1rem;
+            border-radius: 40px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            color: var(--independence);
+            display: inline-block;
+            margin-bottom: 1rem;
+        }
+        footer {
+            background-color: var(--independence);
+            color: var(--silver);
+            padding: 3rem 0 2rem;
+            margin-top: 3rem;
+        }
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        .footer-col h4 {
+            color: #E2DFF0;
+            font-family: 'Inter', sans-serif;
+            font-weight: 600;
+            font-size: 1rem;
+            margin-bottom: 1rem;
+        }
+        .footer-col p, .footer-col a {
+            color: var(--silver);
+            text-decoration: none;
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+        .footer-col a:hover {
+            color: white;
+        }
+        .bottom-bar {
+            border-top: 1px solid rgba(183, 182, 193, 0.2);
+            padding-top: 1.5rem;
+            text-align: center;
+            font-size: 0.8rem;
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        .faq-item {
+            background: white;
+            border-radius: 20px;
+            margin-bottom: 1rem;
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+        }
+        .faq-question {
+            padding: 1.2rem 1.8rem;
+            font-weight: 600;
+            background: white;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: var(--independence);
+            font-size: 1.1rem;
+        }
+        .faq-question span {
+            font-size: 1.5rem;
+            font-weight: 400;
+            transition: transform 0.2s;
+        }
+        .faq-answer {
+            padding: 0 1.8rem 1.2rem 1.8rem;
+            color: var(--text-soft);
+            border-top: 1px solid #f0eef4;
+            display: none;
+        }
+        .faq-item.active .faq-answer {
+            display: block;
+        }
+        .faq-item.active .faq-question span {
+            transform: rotate(45deg);
+        }
+        .contact-card {
+            background: var(--periwinkle-gray);
+            border-radius: 36px;
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+        }
+        @media (max-width: 780px) {
+            .navbar .nav-links { display: none; }
+            .grid-2cols { grid-template-columns: 1fr; gap: 2rem; }
+            .container { padding: 0 1.5rem; }
+            section { padding: 3rem 0; }
+        }
+        .compact-info-card {
+            background: var(--white);
+            border-radius: 24px;
+            padding: 1.2rem 1.5rem;
+            transition: var(--transition);
+            border: 1px solid rgba(70, 70, 85, 0.08);
+            box-shadow: var(--shadow-sm);
+            margin-bottom: 1rem;
+        }
+        .compact-info-card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+        .compact-info-card h4 {
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--independence);
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .compact-info-card p {
+            font-size: 0.85rem;
+            line-height: 1.4;
+            margin-bottom: 0.5rem;
+            color: var(--text-soft);
+        }
+        .compact-info-card .contact-detail {
+            font-size: 0.85rem;
+            margin: 0.4rem 0;
+        }
+        .compact-info-card .contact-detail a {
+            color: var(--independence);
+            text-decoration: none;
+            font-weight: 500;
+            word-break: break-all;
+        }
+        .compact-info-card .contact-detail a:hover {
+            text-decoration: underline;
+        }
+        .compliance-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--independence);
+            font-weight: 600;
+            text-decoration: none;
+            font-size: 0.8rem;
+            margin-top: 0.5rem;
+            border-bottom: 1px solid var(--independence);
+            padding-bottom: 2px;
+        }
+        .right-column-stack {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        .form-message {
+            margin-top: 1rem;
+            padding: 0.75rem;
+            border-radius: 12px;
+            font-size: 0.85rem;
+            display: none;
+        }
+        .form-message.success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+            display: block;
+        }
+        .form-message.error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+            display: block;
+        }
+        .form-message.loading {
+            background: var(--periwinkle-gray);
+            color: var(--independence);
+            display: block;
+        }
+        input, select, textarea {
+            font-family: 'Inter', sans-serif;
+        }
+        .email-link-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            background: var(--independence);
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border-radius: var(--radius-pill);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.9rem;
+            transition: var(--transition);
+            margin-top: 0.5rem;
+            width: 100%;
+        }
+        .email-link-btn:hover {
+            background: #353544;
+            transform: translateY(-2px);
+        }
+        /* Additional styles for better form UX */
+        .form-status {
+            margin-top: 1rem;
+            padding: 1rem;
+            border-radius: 12px;
+            font-size: 0.9rem;
+            display: none;
+        }
+        .form-status.show {
+            display: block;
+        }
+        .form-status.success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .form-status.error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        .form-status.loading {
+            background: var(--periwinkle-gray);
+            color: var(--independence);
+            display: block;
+        }
+        button[type="submit"]:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+    </style>
+</head>
+<body>
+
+<nav class="navbar">
+    <a href="#" class="logo">StarFait Data Labs</a>
+    <ul class="nav-links">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#compliance">Security</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#faq">FAQ</a></li>
+        <li><a href="#contact">Contact</a></li>
+        <li><a href="privacy-policy.html">Privacy</a></li>
+        <li><a href="#app">StarFait Smart</a></li>
+    </ul>
+    <a href="#contact-form-section" class="btn-primary" style="padding: 0.6rem 1.6rem;">Get Started</a>
+</nav>
+
+<main>
+    <!-- HERO SECTION -->
+    <section id="home" class="hero">
+        <div class="container">
+            <div class="grid-2cols" style="align-items: center;">
+                <div>
+                    <div class="badge">🔒 HIA Compliant | Alberta</div>
+                    <h1>Precision Data Management for Healthcare Professionals.</h1>
+                    <p style="font-size: 1.2rem; margin: 1.5rem 0; color: #4A465B;">Specialized patient intake and administrative support designed for accuracy, security, and Alberta health standards.</p>
+                    <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+                        <a href="#contact-form-section" class="btn-primary">Get Started →</a>
+                        <a href="#services" class="btn-outline">Explore services</a>
+                    </div>
+                    <div class="grid-3cols" style="margin-top: 3rem; gap: 1rem;">
+                        <div><span style="font-weight:700;">✓ Compliance First</span><br><small>Built on HIA & HIPAA</small></div>
+                        <div><span style="font-weight:700;">✓ Accuracy Driven</span><br><small>Minimizing manual errors</small></div>
+                        <div><span style="font-weight:700;">✓ Secure Integration</span><br><small>Seamless EMR syncing</small></div>
+                    </div>
+                </div>
+                <div style="background: var(--periwinkle-gray); border-radius: 48px; padding: 2rem; text-align: center;">
+                    <div style="background: white; border-radius: 32px; padding: 2rem; box-shadow: var(--shadow-md);">
+                        <div style="width: 80px; height: 80px; background: var(--independence); border-radius: 30px; margin: 0 auto 1rem; display: flex; align-items: center; justify-content: center; color: white; font-size: 2rem;">📋</div>
+                        <p style="font-weight: 500;">Secure intake • Real-time EMR support • Audit logging</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SERVICES SECTION -->
+    <section id="services" style="background: var(--periwinkle-gray);">
+        <div class="container">
+            <div style="text-align: center;">
+                <div class="badge" style="background: var(--independence); color: white;">Our expertise</div>
+                <h2>Clinical Information & Administrative Support</h2>
+                <p class="section-subhead">Tailored for Alberta clinics, from patient intake to EMR administration.</p>
+            </div>
+            <div class="grid-3cols">
+                <div class="card"><h3>📥 Patient Intake Systems</h3><p>Secure digital-first onboarding workflows, PHN validation, and structured data capture.</p><span style="font-size:0.8rem; color:var(--sage-stone);">HIA-aligned</span></div>
+                <div class="card"><h3>📋 EMR/EHR Administration</h3><p>Professional management of patient records, results lookup, and clinical documentation.</p></div>
+                <div class="card"><h3>💳 Medical Billing Support</h3><p>SOMB code optimization, reducing claim rejections, and administrative billing accuracy.</p></div>
+                <div class="card"><h3>📊 Data Entry Solutions</h3><p>High-volume accurate entry for specialized medical data, backlog clearing, and legacy migration.</p></div>
+                <div class="card"><h3>🔄 Referral Management</h3><p>End-to-end referral lifecycle with secure fax bridge integration.</p></div>
+                <div class="card"><h3>💊 Medication Reconciliation</h3><p>Best Possible Medication History (BPMH) compilation and pharmacology data transcription.</p></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECURITY & COMPLIANCE SECTION -->
+    <section id="compliance">
+        <div class="container">
+            <div style="text-align: center;">
+                <div class="badge">Institutional-grade security</div>
+                <h2>Security & Compliance</h2>
+                <p class="section-subhead">Protecting patient privacy with Alberta HIA, PIPA, and HIPAA standards.</p>
+            </div>
+            <div class="grid-2cols" style="margin-top: 2rem;">
+                <div class="card"><h3>🔒 Encryption & Integrity</h3><p><strong>In-Transit:</strong> SSL/TLS 1.2+ · <strong>At-Rest:</strong> AES-256 encryption, Canadian-based servers.</p><hr style="margin:1rem 0;"><p>Strict data residency within Canada for full provincial compliance.</p></div>
+                <div class="card"><h3>🛡️ Rigorous Access Controls</h3><p>MFA mandatory · Role-Based Access (RBAC) · Automatic session timeout after inactivity.</p></div>
+                <div class="card"><h3>📜 Auditability & Transparency</h3><p>Continuous audit logs, real-time monitoring, and timestamped access records for chain of custody.</p></div>
+                <div class="card"><h3>⚖️ Administrative Safeguards</h3><p>Business Associate Agreements with all vendors, staff privacy training, and designated Information Manager under HIA Section 66.</p></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ABOUT US -->
+    <section id="about" style="background: var(--white);">
+        <div class="container">
+            <div class="grid-2cols" style="align-items: center;">
+                <div>
+                    <div class="badge">Bridge between care & data</div>
+                    <h2>About StarFait Data Labs</h2>
+                    <p style="margin-bottom: 1rem;">We believe healthcare professionals should focus on patients, not paperwork. Founded in Alberta, we provide high-precision data entry, intake, and EMR management that integrates seamlessly into clinical workflows.</p>
+                    <p><strong>Local expertise, global standards</strong> — rooted in HIA requirements, delivering accuracy at every touchpoint.</p>
+                    <div style="margin-top: 2rem;">
+                        <div style="display: flex; gap: 2rem; flex-wrap: wrap;">
+                            <div><span style="font-weight:800;">Precision</span><br>Reducing manual errors</div>
+                            <div><span style="font-weight:800;">Compliance</span><br>HIA, PIPA, HIPAA ready</div>
+                            <div><span style="font-weight:800;">Efficiency</span><br>Streamlined workflows</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card" style="background: var(--periwinkle-gray);">
+                    <h3 style="margin-bottom: 0.5rem;">Jean-Allison McKenzie</h3>
+                    <p style="font-family: monospace;">Clinical Data Specialist & Founder</p>
+                    <p style="margin: 1rem 0;">Bridging the critical gap between frontline nursing workflows and rigorous backend data management. Former LPN (Alberta), B.Sc. Psychology & Pharmacology candidate, HIA Section 66 Information Manager.</p>
+                    <ul style="list-style: none; margin-top: 1rem;">
+                        <li>✓ HIA-compliant administrative architecture</li>
+                        <li>✓ Clinical data integrity & audit readiness</li>
+                    </ul>
+                </div>
+            </div>
+            <div style="text-align: center; margin-top: 3rem;">
+                <p class="section-subhead" style="font-style: italic;">"Data entry shouldn't detract from patient care. We build systems that respect clinical realities while maintaining absolute data integrity."</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ SECTION -->
+    <section id="faq" style="background: var(--periwinkle-gray);">
+        <div class="container">
+            <div style="text-align: center;">
+                <div class="badge" style="background: var(--independence); color:white;">Common questions</div>
+                <h2>Frequently Asked Questions</h2>
+                <p class="section-subhead">Technical, security, and workflow insights.</p>
+            </div>
+            <div class="faq-list">
+                <div class="faq-item"><div class="faq-question">What specific EMR/EHR systems do you support? <span>+</span></div><div class="faq-answer">Our team is experienced with <strong>Meditech</strong>, <strong>Connect Care</strong> (Alberta's provincial system), and <strong>Athena</strong>. We can also build secure workflows for custom or niche systems within 5–10 business days.</div></div>
+                <div class="faq-item"><div class="faq-question">Is StarFait Data Labs HIA and HIPAA compliant?<span>+</span></div><div class="faq-answer">Absolutely. As an Alberta-based Information Manager under HIA, our processes meet HIPAA and PIPA requirements. Data residency in Canada.</div></div>
+                <div class="faq-item"><div class="faq-question">What is the standard turnaround time for patient intake processing?<span>+</span></div><div class="faq-answer">Standard intake is completed within 12–24 hours. Expedited 4-hour processing available for urgent clinical needs.</div></div>
+                <div class="faq-item"><div class="faq-question">How do patients submit their information securely?<span>+</span></div><div class="faq-answer">Through our encrypted Digital Intake Portal. Data is encrypted at submission and never stored on local unencrypted devices.</div></div>
+                <div class="faq-item"><div class="faq-question">Do you provide Business Associate Agreements (BAA)?<span>+</span></div><div class="faq-answer">Yes, we provide a standard BAA for all clinical partners and maintain BAAs with our infrastructure providers for full chain of compliance.</div></div>
+            </div>
+            <div style="text-align: center; margin-top: 2rem;"><a href="#contact" class="btn-outline" style="background: white;">Still have questions? Contact our Alberta team →</a></div>
+        </div>
+    </section>
+
+    <!-- CONTACT SECTION - WORKING FORM WITH FORMSPREE -->
+    <section id="contact" style="background: var(--magnolia);">
+        <div class="container">
+            <div style="text-align: center; margin-bottom: 2rem;">
+                <div class="badge">Reach out securely</div>
+                <h2>Get in Touch</h2>
+                <p class="section-subhead">For clinic partnerships, intake inquiries, and administrative support.</p>
+            </div>
+            <div class="grid-2cols" id="contact-form-section">
+                <!-- left column: WORKING CONTACT FORM - Formspree integration -->
+                <div class="contact-card" style="background: white; box-shadow: var(--shadow-sm);">
+                    <h3>Secure Contact Form</h3>
+                    <!-- 
+                        FORMSPREE SETUP INSTRUCTIONS:
+                        1. Go to https://formspree.io/register and create a free account
+                        2. Create a new form (you'll get a unique endpoint URL like: https://formspree.io/f/YOUR_FORM_ID)
+                        3. Replace the action URL below with your actual Formspree endpoint
+                        4. Verify your email in Formspree to receive submissions
+                    -->
+                    <form id="contactForm" action="https://formspree.io/f/xlgoggag" method="POST" style="display: flex; flex-direction: column; gap: 1rem; margin-top: 1rem;">
+                        <!-- Honeypot field to prevent spam -->
+                        <input type="text" name="_gotcha" style="display:none" />
+
+                        <input type="text" name="organization" id="f_organization" placeholder="Organization Name *" required style="padding: 12px; border-radius: 30px; border: 1px solid #ddd; font-size: 1rem;">
+                        <input type="text" name="contact_person" id="f_contactPerson" placeholder="Contact Person *" required style="padding: 12px; border-radius: 30px; border: 1px solid #ddd; font-size: 1rem;">
+                        <input type="email" name="email" id="f_email" placeholder="Professional Email *" required style="padding: 12px; border-radius: 30px; border: 1px solid #ddd; font-size: 1rem;">
+                        <input type="tel" name="phone" id="f_phone" placeholder="Phone Number" style="padding: 12px; border-radius: 30px; border: 1px solid #ddd; font-size: 1rem;">
+                        <select name="service_interest" id="f_service" style="padding: 12px; border-radius: 30px; border: 1px solid #ddd; font-size: 1rem; background: white;">
+                            <option value="Intake Systems">Patient Intake Systems</option>
+                            <option value="EMR Management">EMR/EHR Management</option>
+                            <option value="Data Migration">Data Migration</option>
+                            <option value="Referral Management">Referral Management</option>
+                            <option value="Medication Reconciliation">Medication Reconciliation</option>
+                            <option value="Medical Billing">Medical Billing Support</option>
+                            <option value="Other">Other / General Inquiry</option>
+                        </select>
+                        <textarea name="message" id="f_message" rows="4" placeholder="Message / volume details *" required style="padding: 12px; border-radius: 20px; border: 1px solid #ddd; font-size: 1rem; resize: vertical;"></textarea>
+                        <label style="display: flex; align-items: flex-start; gap: 0.5rem; font-size: 0.9rem; color: var(--text-soft); cursor: pointer;">
+                            <input type="checkbox" name="consent" id="f_consent" required style="margin-top: 0.2rem;">
+                            <span>I understand this form is for general inquiries only and consent to being contacted regarding my inquiry.</span>
+                        </label>
+                        <button type="submit" id="submitBtn" class="btn-primary" style="justify-content: center; margin-top: 0.5rem;">
+                            <span id="btnText">Send Inquiry</span>
+                            <span id="btnLoader" style="display: none;">Sending...</span>
+                        </button>
+                        <div id="formStatus" class="form-status"></div>
+                    </form>
+                    <div style="text-align: center; margin-top: 1rem; padding-top: 1rem; border-top: 1px solid #eee;">
+                        <p style="font-size: 0.8rem; color: var(--text-soft); margin-bottom: 0.5rem;">Or email us directly:</p>
+                        <a href="mailto:allisonmckenzie429@zohomailcloud.ca" class="email-link-btn">✉️ allisonmckenzie429@zohomailcloud.ca</a>
+                    </div>
+                </div>
+                <!-- right column: compact cards -->
+                <div class="right-column-stack">
+                    <div class="compact-info-card">
+                        <h4>📞 Direct Contact</h4>
+                        <div class="contact-detail"><strong>Business:</strong> <a href="mailto:allisonmckenzie429@zohomailcloud.ca">allisonmckenzie429@zohomailcloud.ca</a></div>
+                        <div class="contact-detail"><strong>Personal/Direct:</strong> <a href="mailto:allisonmckenzie429@zohomailcloud.ca">allisonmckenzie429@zohomailcloud.ca</a></div>
+                        <div class="contact-detail"><strong>Phone:</strong> <a href="tel:8259938836">825-993-8836</a></div>
+                        <div class="contact-detail"><strong>Location:</strong> Alberta, Canada (Remote)</div>
+                    </div>
+                    <div class="compact-info-card">
+                        <h4>⚖️ Information Manager under HIA</h4>
+                        <p>StarFait Data Labs operates under Alberta's <strong>Health Information Act (HIA)</strong> — Section 66. Committed to OIPC standards and data sovereignty.</p>
+                        <a href="#compliance" class="compliance-link">View full security framework →</a>
+                    </div>
+                    <div style="font-size: 0.75rem; color: var(--text-soft); padding: 0.25rem 0;">
+                        <span>📱 Digital intake portal active 24/7 · Responses within 24 hours.</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+<!-- STARFAIT SMART APP SECTION -->
+<section id="app" style="background: var(--white);">
+    <div class="container">
+        <div style="text-align: center;">
+            <div class="badge" style="background: var(--independence); color: white;">Coming Soon</div>
+            <h2>Introducing StarFait Smart</h2>
+            <p class="section-subhead" style="margin: 0 auto 2.5rem;">A dedicated mobile app to help nursing, pre-med, and health-science students master anatomy &amp; physiology — one system at a time.</p>
+        </div>
+
+        <div class="grid-2cols" style="align-items: center; gap: 4rem;">
+            <div>
+                <p style="font-size: 1.1rem; color: var(--text-soft); margin-bottom: 2rem; line-height: 1.8;">
+                    We know how demanding health-science coursework can be. StarFait Smart is being built to give students an interactive, structured way to study — combining smart quizzes, flashcard decks, body-system pathways, and real-time progress tracking in a single app.
+                </p>
+                <div style="display: flex; flex-direction: column; gap: 1rem;">
+                    <div style="display: flex; align-items: flex-start; gap: 1rem;">
+                        <div style="width: 44px; height: 44px; border-radius: 14px; background: var(--periwinkle-gray); display: flex; align-items: center; justify-content: center; font-size: 1.3rem; flex-shrink: 0;">📝</div>
+                        <div><strong style="color: var(--independence);">Practice Quizzes</strong><br><span style="color: var(--text-soft); font-size: 0.95rem;">Topic-specific, timed quizzes that adapt to your weak areas and build exam confidence.</span></div>
+                    </div>
+                    <div style="display: flex; align-items: flex-start; gap: 1rem;">
+                        <div style="width: 44px; height: 44px; border-radius: 14px; background: var(--periwinkle-gray); display: flex; align-items: center; justify-content: center; font-size: 1.3rem; flex-shrink: 0;">🗂️</div>
+                        <div><strong style="color: var(--independence);">Flashcard Decks</strong><br><span style="color: var(--text-soft); font-size: 0.95rem;">Swipeable cards covering key terms, structures, and functions across every major body system.</span></div>
+                    </div>
+                    <div style="display: flex; align-items: flex-start; gap: 1rem;">
+                        <div style="width: 44px; height: 44px; border-radius: 14px; background: var(--periwinkle-gray); display: flex; align-items: center; justify-content: center; font-size: 1.3rem; flex-shrink: 0;">🗺️</div>
+                        <div><strong style="color: var(--independence);">Body System Pathways</strong><br><span style="color: var(--text-soft); font-size: 0.95rem;">Guided visual pathways through each system so you understand the full picture, not just isolated facts.</span></div>
+                    </div>
+                    <div style="display: flex; align-items: flex-start; gap: 1rem;">
+                        <div style="width: 44px; height: 44px; border-radius: 14px; background: var(--periwinkle-gray); display: flex; align-items: center; justify-content: center; font-size: 1.3rem; flex-shrink: 0;">📈</div>
+                        <div><strong style="color: var(--independence);">Progress Tracking</strong><br><span style="color: var(--text-soft); font-size: 0.95rem;">Session scores, streaks, and mastery rings for every topic — so you always know where you stand.</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <div style="background: var(--periwinkle-gray); border-radius: 48px; padding: 2.5rem; text-align: center;">
+                <div style="background: white; border-radius: 32px; padding: 2rem; box-shadow: var(--shadow-md); margin-bottom: 1.5rem;">
+                    <div style="width: 80px; height: 80px; background: var(--independence); border-radius: 30px; margin: 0 auto 1rem; display: flex; align-items: center; justify-content: center; color: white; font-size: 2rem;">🧬</div>
+                    <p style="font-weight: 600; color: var(--independence); font-size: 1.1rem;">StarFait Smart</p>
+                    <p style="font-size: 0.9rem; color: var(--text-soft); margin-top: 0.4rem;">Anatomy &amp; Physiology Study App</p>
+                    <p style="font-size: 0.8rem; color: var(--sage-stone); margin-top: 0.8rem; font-style: italic;">Coming to Google Play</p>
+                </div>
+                <p style="font-size: 0.9rem; color: var(--independence); margin-bottom: 1rem; font-weight: 500;">Get notified when we launch:</p>
+                <form id="smartNotifyForm" action="https://formspree.io/f/xlgoggag" method="POST" style="display: flex; flex-direction: column; gap: 0.75rem;" onsubmit="handleSmartNotify(event)">
+                    <input type="hidden" name="form_type" value="StarFait Smart Launch Notify">
+                    <input type="hidden" name="_subject" value="New StarFait Smart Launch Notify Request">
+                    <input type="email" id="smartNotifyEmail" name="email" placeholder="your@email.com" required autocomplete="email"
+                        style="padding: 0.85rem 1.2rem; border-radius: 60px; border: 1.5px solid rgba(70,70,85,0.2); font-size: 0.95rem; width: 100%; font-family: inherit;">
+                    <button id="smartNotifyBtn" type="submit" class="btn-primary" style="justify-content: center; width: 100%;">Notify Me When It Launches</button>
+                </form>
+                <p id="smartNotifyMsg" style="display: none; margin-top: 0.75rem; font-size: 0.85rem; color: var(--independence); font-weight: 500;">&#10003; You&#39;re on the list! We&#39;ll email you at launch.</p>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- END STARFAIT SMART APP SECTION -->
+
+<!-- FOOTER -->
+<footer>
+    <div class="container">
+        <div class="footer-grid">
+            <div class="footer-col">
+                <h4>StarFait Data Labs</h4>
+                <p>Alberta's Partner in Secure Health Administration.<br>Precision in Admin. Security in Care.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Quick Links</h4>
+                <p><a href="#home">Home</a></p>
+                <p><a href="#about">About Us</a></p>
+                <p><a href="#faq">FAQ</a></p>
+                <p><a href="#contact">Contact</a></p>
+                <p><a href="privacy-policy.html">Privacy Policy</a></p>
+                <p><a href="#app">StarFait Smart App</a></p>
+            </div>
+            <div class="footer-col">
+                <h4>Services</h4>
+                <p>Patient Intake · EMR Management · Medical Billing Support · Data Migrations</p>
+            </div>
+            <div class="footer-col">
+                <h4>Compliance & Contact</h4>
+                <p>📞 825-993-8836</p>
+                <p>✉️ <a href="mailto:allisonmckenzie429@zohomailcloud.ca">allisonmckenzie429@zohomailcloud.ca</a></p>
+                <p>✉️ <a href="mailto:allisonmckenzie429@zohomailcloud.ca">allisonmckenzie429@zohomailcloud.ca</a></p>
+                <p>🔒 HIPAA Compliant · HIA (Alberta) Ready · PIPEDA</p>
+                <p style="margin-top:0.5rem;">Alberta, Canada</p>
+            </div>
+        </div>
+        <div class="bottom-bar">
+            <span>© 2026 StarFait Data Labs. All Rights Reserved.</span>
+            <span><a href="privacy-policy.html" style="color: inherit; text-decoration: underline;">Privacy Policy</a> | Terms of Service | HIA Information Manager</span>
+        </div>
+    </div>
+</footer>
+
+<script>
+    // FAQ accordion functionality
+    const faqItems = document.querySelectorAll('.faq-item');
+    faqItems.forEach(item => {
+        const questionDiv = item.querySelector('.faq-question');
+        questionDiv.addEventListener('click', () => {
+            // Close all other items
+            faqItems.forEach(otherItem => {
+                if (otherItem !== item) {
+                    otherItem.classList.remove('active');
+                }
+            });
+            // Toggle current item
+            item.classList.toggle('active');
+        });
+    });
+
+    // Smooth anchor scroll
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            const targetId = this.getAttribute('href');
+            if (targetId === "#") return;
+            const targetElem = document.querySelector(targetId);
+            if (targetElem) {
+                e.preventDefault();
+                targetElem.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        });
+    });
+
+    // Working Formspree form handler with AJAX submission
+    const contactForm = document.getElementById('contactForm');
+    const submitBtn = document.getElementById('submitBtn');
+    const btnText = document.getElementById('btnText');
+    const btnLoader = document.getElementById('btnLoader');
+    const formStatus = document.getElementById('formStatus');
+
+    if (contactForm) {
+        contactForm.addEventListener('submit', async function(e) {
+            e.preventDefault();
+
+            // Validate consent checkbox
+            const consent = document.getElementById('f_consent');
+            if (!consent.checked) {
+                showStatus('Please check the consent box before submitting.', 'error');
+                return;
+            }
+
+            // Show loading state
+            setLoading(true);
+            showStatus('Sending your inquiry...', 'loading');
+
+            try {
+                const formData = new FormData(contactForm);
+                const response = await fetch(contactForm.action, {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'Accept': 'application/json'
+                    }
+                });
+
+                if (response.ok) {
+                    // Success
+                    showStatus('✓ Thank you! Your inquiry has been sent successfully. We will respond within 24 hours.', 'success');
+                    contactForm.reset();
+                } else {
+                    // Error from server
+                    const data = await response.json();
+                    if (data.errors) {
+                        showStatus('Error: ' + data.errors.map(error => error.message).join(', '), 'error');
+                    } else {
+                        showStatus('Oops! Something went wrong. Please try again or email us directly.', 'error');
+                    }
+                }
+            } catch (error) {
+                // Network or other error
+                showStatus('Connection error. Please check your internet and try again, or email us directly at allisonmckenzie429@zohomailcloud.ca', 'error');
+                console.error('Form submission error:', error);
+            } finally {
+                setLoading(false);
+            }
+        });
+    }
+
+    function setLoading(isLoading) {
+        if (isLoading) {
+            submitBtn.disabled = true;
+            btnText.style.display = 'none';
+            btnLoader.style.display = 'inline';
+        } else {
+            submitBtn.disabled = false;
+            btnText.style.display = 'inline';
+            btnLoader.style.display = 'none';
+        }
+    }
+
+    // StarFait Smart notify form (Formspree)
+    async function handleSmartNotify(event) {
+        event.preventDefault();
+        const form = document.getElementById('smartNotifyForm');
+        const emailInput = document.getElementById('smartNotifyEmail');
+        const submitBtn = document.getElementById('smartNotifyBtn');
+        const msgEl = document.getElementById('smartNotifyMsg');
+        if (!form || !emailInput || !submitBtn || !msgEl) return;
+        const email = emailInput.value.trim();
+        if (!email) return;
+
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Submitting...';
+        msgEl.style.display = 'none';
+
+        try {
+            const formData = new FormData(form);
+            const response = await fetch(form.action, {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'Accept': 'application/json'
+                }
+            });
+
+            if (response.ok) {
+                form.reset();
+                msgEl.textContent = '✓ You are on the list. We will email you when StarFait Smart launches.';
+            } else {
+                msgEl.textContent = 'Could not submit right now. Please try again in a moment.';
+            }
+        } catch (_) {
+            msgEl.textContent = 'Connection issue. Please try again in a moment.';
+        } finally {
+            msgEl.style.display = 'block';
+            submitBtn.disabled = false;
+            submitBtn.textContent = 'Notify Me When It Launches';
+        }
+    }
+
+    function showStatus(message, type) {
+        formStatus.textContent = message;
+        formStatus.className = 'form-status show ' + type;
+
+        // Auto-hide success messages after 8 seconds
+        if (type === 'success') {
+            setTimeout(() => {
+                formStatus.classList.remove('show');
+            }, 8000);
+        }
+    }
+
+    // Add current year to footer copyright if needed
+    const yearSpan = document.querySelector('.bottom-bar span:first-child');
+    if (yearSpan) {
+        yearSpan.innerHTML = '© ' + new Date().getFullYear() + ' StarFait Data Labs. All Rights Reserved.';
+    }
+</script>
+</body>
+</html>
